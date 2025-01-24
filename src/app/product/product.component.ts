@@ -38,27 +38,42 @@ getCategories() {
   this.categoryService.getCategories().subscribe((data) => {
     this.categories = data.map((category: any, index: number) => ({
       index: index + 1, // Add a 1-based index
-      id: category._id,
+      id: category.id,
       name: category.name,
     }));
   });
 }
 
+  // getProducts(page: number) {
+  //   this.productService.getProducts(page, this.pageSize).subscribe((data) => {
+  //     console.log("This is an product data: ",data)
+  //     this.products = data.items.map((product: any, index: number) => ({
+  //       index: (page - 1) * this.pageSize + index + 1,  
+  //       id: product.id,
+  //       name: product.name,
+  //       categoryName: product.categoryId ? product.categoryId.name : 'Uncategorized',
+  //     }));
+  //     this.totalProducts = data.total;
+  //   });
+  // }
+  
   getProducts(page: number) {
     this.productService.getProducts(page, this.pageSize).subscribe((data) => {
+      console.log("This is product data from Prisma: ", data);
       this.products = data.items.map((product: any, index: number) => ({
-        index: (page - 1) * this.pageSize + index + 1,  
-        id: product._id,
+        index: (page - 1) * this.pageSize + index + 1,
+        id: product.id,
         name: product.name,
-        categoryName: product.categoryId ? product.categoryId.name : 'Uncategorized',
+        categoryName: product.category ? product.category.name : 'Uncategorized', // Adjust for Prisma
+        categoryId: product.categoryId, // Maintain categoryId for dropdown
       }));
       this.totalProducts = data.total;
     });
   }
   
-
   saveProduct() {
     const product = this.productForm.value;
+    console.log("This is saveProduct: ",product)
     if (product.id) {
       this.productService.updateProduct(product.id, product).subscribe(() => this.getProducts(1));
     } else {

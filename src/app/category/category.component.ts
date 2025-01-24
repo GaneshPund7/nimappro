@@ -25,10 +25,12 @@ export class CategoryComponent implements OnInit {
   getCategories() {
     this.categoryService.getCategories().subscribe(
       (data) => {
+        console.log("This is a data: ",data)
         // Map MongoDB `_id` to `id` and add a 1-based index
-        this.categories = data.map((category: any, index: number) => ({
+        if(data.length === 0) return;
+        this.categories = data?.map((category: any, index: number) => ({
           index: index + 1, // Add sequential index
-          id: category._id,
+          id: category.id,
           name: category.name,
         }));
       },
@@ -68,6 +70,8 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(id: string) {
+    console.log("This is an delete function : ", id)
+
     if (!id) {
       this.errorMessage = 'Invalid category ID. Unable to delete.';
       return;

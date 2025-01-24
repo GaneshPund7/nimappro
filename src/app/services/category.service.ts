@@ -5,17 +5,15 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class CategoryService {
-  private apiUrl1 = 'http://localhost:3000/category'; 
-    private apiUrl2 = 'http://localhost:3001/categories';
-
-private apiUrl = this.apiUrl1 || this.apiUrl2;
+export class CategoryService { 
+    private apiUrl2 = 'http://localhost:3001/api/categories';
+    // private apiUrl2 = 'http://localhost:3000/api/category';
 
   constructor(private http: HttpClient) {}
 
   // Get all categories
   getCategories(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(this.apiUrl2);
   }
 
   // Create a new category
@@ -23,15 +21,15 @@ private apiUrl = this.apiUrl1 || this.apiUrl2;
   //   return this.http.post(this.apiUrl, category);
   // }
   createCategory(category: { name: string }): Observable<any> {
-    return this.http.post<any>(this.apiUrl, category);
+    return this.http.post<any>(this.apiUrl2, category);
   }
   // Update an existing category
   updateCategory(id: string, category: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, category);
+    return this.http.put(`${this.apiUrl2}/${id}`, category);
   }
 
   // Delete a category
   deleteCategory(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.apiUrl2}/${id}`);
   }
 }

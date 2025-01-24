@@ -5,9 +5,14 @@
         <input matInput formControlName="name" placeholder="Product Name">
       </mat-form-field>
       <mat-form-field>
-        <mat-select formControlName="categoryId" placeholder="Category">
+        <!-- <mat-select formControlName="categoryId" placeholder="Category">
           <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
-        </mat-select>
+        </mat-select> -->
+        <!-- <mat-form-field> -->
+          <mat-select formControlName="categoryId" placeholder="Category">
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+          </mat-select>
+        <!-- </mat-form-field> -->
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit" class="ms-3">Save</button>
     </form>
